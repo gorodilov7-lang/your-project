@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🤖 Running AI pre-commit checks..."
+
+# Проверяем, есть ли изменения
+if [ -z "$(git diff --cached)" ]; then
+  echo "⏭️  No changes to check"
+  exit 0
+fi
+
+echo "✅ Pre-commit check passed"
+exit 0

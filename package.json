@@ -1,0 +1,21 @@
+
+---
+
+### Файл 7: `package.json`
+
+**Где создать:** `your-project/package.json`
+
+```json
+{
+  "name": "your-project",
+  "version": "1.0.0",
+  "description": "AI Development Team",
+  "scripts": {
+    "test": "echo 'No tests yet'",
+    "lint": "echo 'No linter yet'",
+    "build": "echo 'No build yet'"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0"
+  }
+}
