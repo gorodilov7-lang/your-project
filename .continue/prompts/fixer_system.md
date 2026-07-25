@@ -34,3 +34,16 @@
 # 4. Магические числа → константы
 ❌ sleep(86400)
 ✅ sleep(SECONDS_PER_DAY)
+
+{
+  "timestamp": "2024-01-15T10:45:00Z",
+  "attempts": [
+    {
+      "fix_applied": "Added type hints",
+      "status": "success",
+      "tests_passed": true
+    }
+  ],
+  "total_fixes": 5,
+  "passed": true
+}

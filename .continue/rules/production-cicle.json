@@ -1,0 +1,25 @@
+{
+  "name": "production-cycle",
+  "description": "🤖 Полный цикл: Генерация → Безопасность → Ревью → Одобрение",
+  "steps": [
+    {
+      "action": "agent",
+      "agent": "writer",
+      "prompt": "Сгенерируй production-ready код для задачи:\n{{input}}"
+    },
+    {
+      "action": "agent",
+      "agent": "security_scanner",
+      "prompt": "Проверь следующий код на уязвимости (OWASP):\n{{output}}"
+    },
+    {
+      "action": "agent",
+      "agent": "reviewer",
+      "prompt": "Сделай код-ревью. Оцени качество по шкале 0-10:\n{{output}}"
+    },
+    {
+      "action": "user",
+      "prompt": "Код готов к ревью. Введите 'approve' для одобрения или 'reject' для отклонения.\n\nКод:\n{{output}}"
+    }
+  ]
+}

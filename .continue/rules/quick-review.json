@@ -1,0 +1,16 @@
+{
+  "name": "quick-review",
+  "description": "⚡ Быстрое ревью без генерации кода",
+  "steps": [
+    {
+      "action": "agent",
+      "agent": "reviewer",
+      "prompt": "Сделай быстрый код-ревью:\n{{input}}"
+    },
+    {
+      "action": "agent",
+      "agent": "security_scanner",
+      "prompt": "Проверь код на уязвимости:\n{{input}}"
+    }
+  ]
+}
