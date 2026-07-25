@@ -1,0 +1,92 @@
+# Continue Configuration (YAML format)
+
+telemetryPath: "./.continue/logs"
+
+# Модели
+name: Local Config
+version: 1.0.0
+schema: v1
+
+models:
+  # Локальная модель через Ollama
+  - name: Qwen2.5-Coder 7B (Local)
+    provider: ollama
+    model: qwen2.5-coder:7b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    capabilities:
+      - tool_use
+    contextWindow: 8192
+
+  # Если FreeLLM работает — добавьте и его
+  - name: FreeLLM (Smart Routing)
+    provider: openai
+    model: auto
+    apiBase: http://localhost:3000/v1
+    apiKey: "${FREELLM_API_KEY}"
+    roles:
+      - chat
+      - edit
+      - apply
+
+# Автодополнение через лёгкую модель (опционально)
+tabAutocompleteModel:
+  name: Qwen2.5-Coder 1.5B (Autocomplete)
+  provider: ollama
+  model: qwen2.5-coder:1.5b
+  apiBase: http://localhost:11434
+
+# Агенты
+agents:
+  writer:
+    name: "Code Generator"
+    model: "FreeLLM (Smart Routing)"
+    systemMessage: "file://./.continue/prompts/writer_system.md"
+    temperature: 0.3
+
+  reviewer:
+    name: "Code Reviewer"
+    model: "FreeLLM (Smart Routing)"
+    systemMessage: "file://./.continue/prompts/reviewer_system.md"
+    temperature: 0.2
+
+  security_scanner:
+    name: "Security Scanner"
+    model: "FreeLLM (Smart Routing)"
+    systemMessage: "file://./.continue/prompts/security_system.md"
+    temperature: 0.0
+
+  fixer:
+    name: "Auto Fixer"
+    model: "FreeLLM (Smart Routing)"
+    systemMessage: "file://./.continue/prompts/fixer_system.md"
+    temperature: 0.1
+    maxRetries: 2
+
+# Контекст
+contextProviders:
+  git:
+    enabled: true
+    maxDiffLines: 500
+  codebase:
+    enabled: true
+    ignorePatterns:
+      - node_modules
+      - .git
+      - dist
+
+# Безопасность
+safety:
+  maxCostPerDay: 10.0
+  requireApprovalForPublish: true
+
+# Логирование
+logging:
+  level: "info"
+  format: "jsonl"
+  outputs:
+    - type: "file"
+      path: ".continue/logs/events.jsonl"
